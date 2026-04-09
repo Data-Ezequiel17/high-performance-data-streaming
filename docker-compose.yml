@@ -313,6 +313,75 @@ services:
   spark-worker-3:
     <<: *spark-worker-image
 
+  #  MONITORING
+  prometheus:
+    image: prom/prometheus:v3.0.0
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus:/etc/prometheus
+    depends_on:
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+    networks:
+      - realtime
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - realtime
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.1
+    container_name: es-container
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    networks:
+      - realtime
+
+  kibana:
+    container_name: kb-container
+    image: docker.elastic.co/kibana/kibana:8.11.1
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es-container:9200
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    networks:
+      - realtime
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.12.2
+    user: root
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/elk/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./logs/controller-logs_1:/opt/kafka/controller-logs_1:ro
+      - ./logs/controller-logs_2:/opt/kafka/controller-logs_2:ro
+      - ./logs/controller-logs_3:/opt/kafka/controller-logs_3:ro
+      - ./logs/broker-logs_1:/opt/kafka/broker-logs_1:ro
+      - ./logs/broker-logs_2:/opt/kafka/broker-logs_2:ro
+      - ./logs/broker-logs_3:/opt/kafka/broker-logs_3:ro
+    environment:
+      - ELASTICSEARCH_HOST=http://es-container:9200
+    networks:
+      - realtime
+    depends_on:
+      - elasticsearch
+
 volumes:
   grafana-data:
 
