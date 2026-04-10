@@ -78,4 +78,4 @@ once the data(logs) is in Promethius then Grafana is used to connect to promethi
 **Observability** 
 
 Filebeat is a lightweight shipper that monitors specific log files or locations, collects events, and forwards them to a designated output. In this case, ElasticSearch to be indexed. Once these 
-logs are indexed in ElasticSearch, Kibana is connected to ElasticSearch to visualize this data to see anything to would like to observe in th elogs(errors, failures, etc).
+logs are indexed in ElasticSearch, Kibana is connected to ElasticSearch to visualize this data to see anything you would like to observe in th elogs(errors, failures, etc).
