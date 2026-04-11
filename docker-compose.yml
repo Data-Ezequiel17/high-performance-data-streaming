@@ -367,6 +367,7 @@ services:
     image: docker.elastic.co/beats/filebeat:8.12.2
     user: root
     restart: unless-stopped
+    command: filebeat -e -strict.perms=false
     volumes:
       - ./monitoring/elk/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./logs/controller-logs_1:/opt/kafka/controller-logs_1:ro
