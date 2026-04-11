@@ -58,7 +58,7 @@ Using Docker compose it spins up and connects:
 + Promethius and Grafana containers for kafka broker monotoring(CPU, memory, throughput, ect).
 + Filebeat, ElasticSearch, and Kibana containers for kafka broker logs Observability.
 + Schema registry container to manage and validate data schemas in the pipeline.
-
++ Alert manager container to handle alerts sent by client applications such as the Prometheus server in this case.
 
 **Core logic** 
 
