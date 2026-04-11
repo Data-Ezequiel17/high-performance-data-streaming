@@ -79,3 +79,57 @@ once the data(logs) is in Promethius then Grafana is used to connect to promethi
 
 Filebeat is a lightweight shipper that monitors specific log files or locations, collects events, and forwards them to a designated output. In this case, ElasticSearch to be indexed. Once these 
 logs are indexed in ElasticSearch, Kibana is connected to ElasticSearch to visualize this data to see anything you would like to observe in the logs(errors, failures, etc).
+
+
+## How to run
+**prequalifications:**
++ have docker desktop installed and running
++ have a powerful computer. If this doesnt work on your personal then use a powerful ec2 instance
+
+**STEP 1** - create a python virtual environment in your IDE by running these two commands in terminal: 
+```bash 
+python -m venv venv
+```
+```bash 
+venv\Scripts\activate
+```
+
+**STEP 2** - once virtual environment is running, run pip install command to install confluent_kafka and pyspark:
+```bash
+ pip install confluent_kafka 
+```
+```bash
+ pip install pyspark
+```
+
+**STEP 3** - once that is done, run docker compose up:
+```bash 
+docker compose up -d
+```
+
+**STEP 4** - open two terminals, possibly 3 to run seperate commands. In one terminal run the main.py python script to generate fake transaction data into kafka. In the other terminal run the 'docker exec' command to run a spark submit in the master spark container to run the spark_processor.py python script to connect/ingest/process data from kafka into spark streaming. 
+
+terminal 1 run: 
+```bash 
+python main.py
+```
+
+terminal 2 run:
+```bash 
+docker exec -it kafkaspark-spark-master-1 spark-submit --master spark://spark-master:7077 --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0 jobs/spark_processor.py
+```
+
+**STEP 5** - you can got to kafka ui to check kafka topics and other info. You can go to master spark ui to view the aprk worker info and spark job currently running.
+
+kafka ui - http://localhost:8080/
+
+spark ui - http://localhost:4040/ 
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+\
+**How to view monitoring w/ promethius and grafana**
+
+**STEP 1** - go to grafana dashboard on http://localhost:3000/ and log in username: admin password: admin. It will ask you to change password. Chnage it to whatever you want.
+
+**STEP 2** - In grafana go to dashboards and click 'NEW' then 'IMPORT'. Enter the dashboard ID '24626' in the second to last box and click 'LOAD'. Then at bottom select 'DS_PROMETHEUS' 
+and then 'IMPORT'. Go to dashboard tab and you should see all the metrics available.
