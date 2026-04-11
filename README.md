@@ -75,6 +75,10 @@ I configured log4j via commands in docker compose file to format the logs from t
 that Log4j naturally exposes to the Java Virtual Machine (JVM). This allows you to convert Log4j's internal state—such as log levels, configuration details, and appender performance—into a format that monitoring tools like Prometheus can understand.
 once the data(logs) is in Promethius then Grafana is used to connect to promethius and visualize the data with dashboards.
 
+In Grafana every dashboard is a single JSON document that contains all the settings, panel configurations, and data queries to create that dashboard.
+You can customize the JSON to modify and create any dashboard you want to see any metric you want for the system you are monitoring. Kafka controllers and brokers in our case.
+You can create a JSON document from scratch or get one from grafana.com
+
 **Observability** 
 
 Filebeat is a lightweight shipper that monitors specific log files or locations, collects events, and forwards them to a designated output. In this case, ElasticSearch to be indexed. Once these 
