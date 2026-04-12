@@ -123,7 +123,7 @@ terminal 2 run:
 docker exec -it kafkaspark-spark-master-1 spark-submit --master spark://spark-master:7077 --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0 jobs/spark_processor.py
 ```
 
-**STEP 5** - you can got to kafka ui to check kafka topics and other info. You can go to master spark ui to view the aprk worker info and spark job currently running.
+**STEP 5** - you can go to kafka ui to check kafka topics and other info. You can go to master spark ui to view the spark worker health/metrics and spark job currently running.
 
 kafka ui - http://localhost:8080/
 
@@ -131,7 +131,7 @@ spark ui - http://localhost:4040/
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 \
-**How to view monitoring w/ promethius and grafana**
+**How to view monitoring w/ Promethius and Grafana**
 
 **STEP 1** - go to grafana dashboard on http://localhost:3000/ and log in username: admin password: admin. It will ask you to change password. Chnage it to whatever you want.
 
