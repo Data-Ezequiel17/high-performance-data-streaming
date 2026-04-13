@@ -46,8 +46,26 @@ I also used Filebeat, ElasticSearch and Kibana for observability and visualizati
 </details>
 
 <details> 
-<summary><strong>Project files description</strong></summary>
+<summary><strong>Project files description</strong></summary> 
+
+
++ **docker-compose.yml** -YAML configuration file used by Docker Compose to define and manage multi-container Docker applications.
++ **main.py** -python script that creates fake transaction data and send it to kafka.
+  
+jobs folder
++ **spark_processor.py** -python file that is ran using spark submit to connect/ingest/process data from kafka into spark streaming.
+
+monitoring folder
++ **alert_rules.yml** -define Prometheus alerting rules to trigger notifications when specific conditions are met.
++ **prometheus.yml** -main prometheus config file to format to define how the server scrapes metrics, processes rules, and sends alerts.
++ **filebeat.yml** -main config file defining where to find logs (inputs), how to process/parse them (processors), and where to send them, such as Elasticsearch.
++ **prometheus_ds.yml** -config file to connect prometheus to grafana.
  
+volumes folder
++ **jmx_prometheus_javaagent-1.0.1.jar** -a Java agent from the Prometheus JMX Exporter project. It attaches to Java Virtual Machines (JVM) 
+to collect JMX MBean metrics and expose them in a Prometheus-compatible format. You can get at https://github.com/prometheus/jmx_exporter/releases
++ **kafka-broker.yml** -config file that tells jmx_exporter what/how you want to be extracted from the kafka brokers and controllers.
+
 </details>
 
 ## How things work 
@@ -135,5 +153,40 @@ spark ui - http://localhost:4040/
 
 **STEP 1** - go to grafana dashboard on http://localhost:3000/ and log in username: admin password: admin. It will ask you to change password. Chnage it to whatever you want.
 
-**STEP 2** - In grafana go to dashboards and click 'NEW' then 'IMPORT'. Enter the dashboard ID '24626' in the second to last box and click 'LOAD'. Then at bottom select 'DS_PROMETHEUS' 
-and then 'IMPORT'. Go to dashboard tab and you should see all the metrics available.
+**STEP 2** - In grafana go to dashboards and click 'NEW' then 'IMPORT'. Enter the dashboard ID '24626' in the second to last box and click 'LOAD'. Then at bottom select 'DS_PROMETHEUS' and then 'IMPORT'. Go to dashboard tab and you should see all the metrics available.
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+\
+**How to view observability w/ ElasticSearch and Kibana**
+
+**STEP 1** - go to Kibana dashboard on http://localhost:5601/ and click 'Add integrations' and type 'logstash' in search bar. Click 'logstash logs' and at the bottom click 'logstash logs'. Then 'create data view'.
+
+**STEP 2** - under name type whatever name you want. under index pattern type 'kafka-logs-filebeat-'. under timestamp field pick @timestamp.
+
+**STEP 3** - click 'view available dashboards' and then 'create a dashboard' and 'create visualization'. You can now create your own custom observability dashboard.
+
+ElasticSearch - http://localhost:9200/
+
+
+<details> 
+<summary><strong>picture</strong></summary>
+ 
+<img width="2780" height="1417" alt="image" src="https://github.com/user-attachments/assets/2caccc62-fee7-40a9-8b33-6840df034fdc" />
+
+</details>
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+\
+**TO TERMINATE PROGRAMS** 
+
++ to end the generate_data.py script: \
+```Ctrl+C``` or end terminal
+
++ to shut down docker containers:
+```bash
+docker compose down -v
+```
++ to end python virtual environment:
+```bash
+deactivate
+```
