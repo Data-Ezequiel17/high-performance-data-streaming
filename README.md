@@ -160,9 +160,9 @@ spark ui - http://localhost:4040/
 
 **STEP 1** - go to Kibana dashboard on http://localhost:5601/ and click 'Add integrations' and type 'logstash' in search bar. Click 'logstash logs' and at the bottom click 'logstash logs'. Then 'create data view'.
 
-**STEP 2** - under name type whatever name you want. under index pattern type 'kafka-logs-filebeat-'. under timestamp field pick @timestamp.
+**STEP 2** - under name type whatever name you want. under index pattern type 'kafka-logs-logstash-'. under timestamp field pick @timestamp.
 
-**STEP 3** - click 'view available dashboards' and then 'create a dashboard' and 'create visualization'. You can now create your own custom observability dashboard.
+**STEP 3** - click 'view available dashboards' and then 'create a dashboard' and then 'create visualization'. You can now create your own custom observability dashboard by drag and drop fiels on the left hand side.
 
 ElasticSearch - http://localhost:9200/
 
