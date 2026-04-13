@@ -382,6 +382,26 @@ services:
       - realtime
     depends_on:
       - elasticsearch
+  
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.1
+    container_name: ls-container
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./monitoring/elk/logstash/pipeline:/usr/share/logstash/pipeline
+      - ./logs/controller-logs_1:/opt/kafka/controller-logs_1:ro
+      - ./logs/controller-logs_2:/opt/kafka/controller-logs_2:ro
+      - ./logs/controller-logs_3:/opt/kafka/controller-logs_3:ro
+      - ./logs/broker-logs_1:/opt/kafka/broker-logs_1:ro
+      - ./logs/broker-logs_2:/opt/kafka/broker-logs_2:ro
+      - ./logs/broker-logs_3:/opt/kafka/broker-logs_3:ro
+    environment:
+      - ELASTICSEARCH_HOST=http://es-container:9200
+      - KAFKA_BOOTSTRAP_SERVERS=kafka-broker-1:19092,kafka-broker-2:19092,kafka-broker-3:19092
+    networks:
+      - realtime
 
 volumes:
   grafana-data:
