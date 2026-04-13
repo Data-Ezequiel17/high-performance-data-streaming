@@ -99,8 +99,7 @@ You can create a JSON document from scratch or get one from grafana.com
 
 **Observability** 
 
-Filebeat is a lightweight shipper that monitors specific log files or locations, collects events, and forwards them to a designated output. In this case, ElasticSearch to be indexed. Once these 
-logs are indexed in ElasticSearch, Kibana is connected to ElasticSearch to visualize this data to see anything you would like to observe in the logs(errors, failures, etc).
+Logstash is a server-side data processing tool that ingests data from multiple sources simultaneously, transforms it, and sends it to a "stash" like Elasticsearch to be indexed. Once these logs are indexed in ElasticSearch, Kibana is connected to ElasticSearch to visualize this data to see anything you would like to observe in the logs(errors, failures, etc).
 
 
 ## How to run
