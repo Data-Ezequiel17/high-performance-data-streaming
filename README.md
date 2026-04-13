@@ -106,7 +106,7 @@ Logstash is a server-side data processing tool that ingests data from multiple s
 ## How to run
 **prequalifications:**
 + have docker desktop installed and running
-+ have a powerful computer. If this doesnt work on your personal then use a powerful ec2 instance
++ have a powerful setup(32GB ram+/ 9i). If this doesnt work on your personal then use a powerful ec2 instance
 
 **STEP 1** - create a python virtual environment in your IDE by running these two commands in terminal: 
 ```bash 
