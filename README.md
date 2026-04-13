@@ -60,6 +60,7 @@ monitoring folder
 + **prometheus.yml** -main prometheus config file to format to define how the server scrapes metrics, processes rules, and sends alerts.
 + **filebeat.yml** -main config file defining where to find logs (inputs), how to process/parse them (processors), and where to send them, such as Elasticsearch.
 + **prometheus_ds.yml** -config file to connect prometheus to grafana.
++ **logstash.conf** -used by Logstash to define how data should be ingested, transformed, and sent to its final destination.
  
 volumes folder
 + **jmx_prometheus_javaagent-1.0.1.jar** -a Java agent from the Prometheus JMX Exporter project. It attaches to Java Virtual Machines (JVM) 
