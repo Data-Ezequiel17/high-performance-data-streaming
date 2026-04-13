@@ -38,9 +38,9 @@ I also used Filebeat, ElasticSearch and Kibana for observability and visualizati
 <details> 
 <summary><strong>Features</strong></summary>
  
-+ Kibana dashboard to view kafka broker logs
-+ Grafana dashboard to view kafka broker health and resource utalization
-+ Real-time aggregation and analysis of data
++ Kibana dashboard to view kafka controller and broker logs for observability
++ Grafana dashboard to monitor kafka broker health and resource utalization
++ Real-time aggregation and analysis of data with spark streaming
 + Schema registry
   
 </details>
