@@ -151,9 +151,9 @@ spark ui - http://localhost:4040/
 \
 **How to view monitoring w/ Promethius and Grafana**
 
-**STEP 1** - go to grafana dashboard on http://localhost:3000/ and log in username: admin password: admin. It will ask you to change password. Chnage it to whatever you want.
+**STEP 1** - go to grafana dashboard on http://localhost:3000/ and log in username: admin password: admin. It will ask you to change password. Change it to whatever you want.
 
-**STEP 2** - In grafana go to dashboards and click 'NEW' then 'IMPORT'. Enter the dashboard ID '24626' in the second to last box and click 'LOAD'. Then at bottom select 'DS_PROMETHEUS' and then 'IMPORT'. Go to dashboard tab and you should see all the metrics available.
+**STEP 2** - In grafana go to dashboards and click 'NEW' then 'IMPORT'. Enter the dashboard ID '24626' (or any id from https://grafana.com/grafana/dashboards/?search=kafka) in the second to last box and click 'LOAD'. Then at bottom select 'DS_PROMETHEUS' and then 'IMPORT'. Go to dashboard tab and you should see all the metrics available.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 \
