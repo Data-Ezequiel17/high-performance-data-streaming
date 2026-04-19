@@ -1,0 +1,33 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /opt/kafka/controller-logs_1/kafka.log
+      - /opt/kafka/controller-logs_2/kafka.log
+      - /opt/kafka/controller-logs_3/kafka.log
+      - /opt/kafka/broker-logs_1/kafka.log
+      - /opt/kafka/broker-logs_2/kafka.log
+      - /opt/kafka/broker-logs_3/kafka.log
+    multiline.pattern: '^\['
+    multiline.negate: true
+    multiline.match: after
+    fields:
+      log_type: kafka
+
+processors:
+  - dissect:
+      tokenizer: "[%{timestamp}] %{log_level} [%{raft_manager}] %{message}"
+      field: "message"
+      target_prefix: "parsed"
+      ignore_failure: true
+  - drop_fields:
+      fields: ["message"]
+
+setup.template:
+  name: "kafka-logs-filebeat"
+  pattern: "kafka-logs-filebeat-*"
+  enabled: true
+
+output.elasticsearch:
+  hosts: ["es-container:9200"]
+  index: "kafka-logs-filebeat-%{+yyyy.MM.dd}"
