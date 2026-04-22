@@ -10,7 +10,7 @@ High performing real-time Kafka and Spark streaming pipeline with observability 
 + Kafka
 + Docker
 + Spark streaming
-+ Promethius
++ Promethius 
 + Grafana
 + ElasticSearch
 + Filebeat
