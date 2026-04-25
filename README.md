@@ -68,6 +68,7 @@ to collect JMX MBean metrics and expose them in a Prometheus-compatible format. 
 + **kafka-broker.yml** -config file that tells jmx_exporter what/how you want to be extracted from the kafka brokers and controllers.
 
 </details>
+<img width="1850" height="1005" alt="image" src="https://github.com/user-attachments/assets/82bfc607-0b91-476b-b9f1-8c247ea96c47" />
 
 ## How things work 
 
